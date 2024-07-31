@@ -1,5 +1,7 @@
 const express = require('express')
 const server = require('./server')
+// Exemple de définition
+const baseUrl = '';
 
 const app = express()
 

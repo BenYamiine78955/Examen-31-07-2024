@@ -1,33 +1,40 @@
-import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Template from './components/Template.jsx'
-import AddBook from './components/AddABook'
-import BookDetails from './components/BookDetails'
-import EditBook from './components/EditBook'
-import BookList from './components/BookList.jsx'
-import Register from './components/Register.jsx'
-import Login from './components/Login.jsx'
-import DashBoard from './components/DashBoard.jsx'
-import './style.css'
-const base = import.meta.env.VITE_BASE_URL || '/'
+// App.jsx
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Template from './components/Template.jsx';
+import AddBook from './components/AddABook';
+import BookDetails from './components/BookDetails';
+import EditBook from './components/EditBook';
+import BookList from './components/BookList.jsx';
+import Register from './components/Register.jsx';
+import Login from './components/Login.jsx';
+import DashBoard from './components/DashBoard.jsx';
+import './style.css';
+import LoanHistory from './components/LoanHistory'; // Assurez-vous que ce chemin est correct
+import ReturnBooks from './components/ReturnBooks'; // Assurez-vous que le chemin est correct
 
+const base = import.meta.env.VITE_BASE_URL || '/';
 
 function App() {
-    const [userT, setUserT] = useState(null)
+    const [userT, setUserT] = useState(null);
+
     return (
-        <Router basename={base === "/" || "http://localhost:3000/" ? "/" :`/${base}`}>
+        <Router basename={base === "/" || "http://localhost:3000/" ? "/" : `/${base}`}>
             <Routes>
-                <Route path="/" element={<Template userT={userT}><BookList /></Template>} />
+                <Route path="/" element={<Template userT={userT}><DashBoard /></Template>} />
                 <Route path="/register" element={<Template userT={userT} page="Inscription"><Register /></Template>} />
                 <Route path="/dashboard" element={<Template userT={userT} page="Tableau de bord"><DashBoard /></Template>} />
-                <Route path="/login" element={<Template userT={userT} page="Connexion"><Login setUserT={setUserT}/></Template>} />
+                <Route path="/login" element={<Template userT={userT} page="Connexion"><Login setUserT={setUserT} /></Template>} />
                 <Route path="/books" element={<Template userT={userT}><BookList /></Template>} />
                 <Route path="/add_book" element={<Template userT={userT} page="Ajout d'un livre"><AddBook /></Template>} />
                 <Route path="/book/:bookId" element={<Template userT={userT} page="Détail du livre"><BookDetails /></Template>} />
                 <Route path="/edit_book/:bookId" element={<Template userT={userT} page="Édition du livre"><EditBook /></Template>} />
+                <Route path="/loan-history" element={<Template userT={userT} page="Historique des Emprunts"><LoanHistory /></Template>} />
+                <Route path="/return-books" element={<Template userT={userT} page="Retourner un Livre"><ReturnBooks /></Template>} />
+
             </Routes>
         </Router>
     );
 }
 
-export default App
+export default App;
